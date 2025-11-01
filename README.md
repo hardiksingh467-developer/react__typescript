@@ -56,3 +56,14 @@ But we need valid CSS properties passed as keys and also valid values of those p
 
 
 ### Video 9: useState hook
+When we define a useState hook and give it a default value, TS makes the type of that value the only type allowed to be passed in that state from onward, this is the Type inference in action when writing code in TypeScript
+
+### Video 10: useState hook, but we do not pass any initial value
+If we provide the initial value to be null and try to change that in the future, we will encounter an error of we try to assign any other value to that state apart from null.
+Hence now we need a way to pacify TS, and this is where we need to explicitly specify the type of the useState hook and not rely on type inference
+We do that by adding angle bracket after `useState` and before `(initialValue)`
+For example const [user, setUser] = useState<null | customType>(null);
+
+Although now the optional chaining becomes compulsory for compilation as the user object can also not exist
+
+### Video 11: useState Type Assertion
