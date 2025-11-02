@@ -67,3 +67,41 @@ For example const [user, setUser] = useState<null | customType>(null);
 Although now the optional chaining becomes compulsory for compilation as the user object can also not exist
 
 ### Video 11: useState Type Assertion
+Whenever we use objects that can have null as their initial value, we always need to check null through optional chaining.
+This of course is the right thing to do, but sometimes we as a developer would know that user would be set to the correct value very soon after the component mounts and will never be null in the future
+
+For example we will set the user in the useEffect hook and let's also assume we cannot logout(that is, user can now never be null), in such cases we can use Type Assertion, to let TS know that user is always of type `customType` and won't be null
+For Type Assertion we use the `as` keyword
+Hence instead of const [user, setUser] = userState<customType | null>(null);
+we do, const [user, setUser] = useState<customType>({} as customType)
+Now we can access the name and email key's of user object without an optional chaining check
+It's like telling TS that we know better than the compiler, we are in fact lying to TS that the empty object is of type customType 
+It's best to be conventional and simply tell TS that the user state can be null
+Type Assertion is simply we could come across an existing codebase.
+
+### Video 12: useReducer Hook
+When defining the reducer function while using the useReducer Hook, we need to specify its type to typescript
+That's all, due to Type Inference, we do not need to specify the type of any other variable,
+
+### Video 13: useReducer Strict action Types
+Although we won't see any errors in the file after specifying the type of action, we need to make the action values to be Enum and not string, in order to make sure only the expected values are passed in.
+Hence instead of sating type CounterAction = { type: string, payload: number} we can say type CounterAction = {type: "increment" | "decrement" | "reset", payload?: number }
+Now making the payload as required will show error in switch statement in the Reducer function as the payload can be undefined, 
+So to handle that we can go to old JS method and simply add an OR, that is, action.payload || 0
+Or what we can do is we define another type called UpdateAction, which is responsible for only increment and decrement actions
+'
+type UpdateActions = {
+    type: "increment" | "decrement" | "reset",
+    payload: number
+}
+
+now we also create a second type
+
+type ResetAction = {
+    type: "reset" | 
+}
+
+finally we say type CounterAction = UpdateAction | ResetAction
+
+
+### Video 14: useContext Hook
