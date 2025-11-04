@@ -105,3 +105,4 @@ finally we say type CounterAction = UpdateAction | ResetAction
 
 
 ### Video 14: useContext Hook
+We are going to provide a theme to our React Application using the useContext API, as it is the most common use case of useContext
